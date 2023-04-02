@@ -1,10 +1,11 @@
 <script>
-import axios from "axios"
+import {store} from "../store.js";
+import axios from "axios"; 
 import Cards from './Cards.vue';
 export default {
   data() {
     return {
-      
+      store,
     }
   },
   components: {
@@ -14,6 +15,7 @@ export default {
     
     axios.get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=50&offset=0").then((response) => {
     console.log(response.data.data);
+    store.cards = response.data.data;
   });
 },
 }
@@ -24,7 +26,7 @@ export default {
 <template>
   <div>
     <h1>Yu-Gi-Oh! First 50 Card-List</h1>
-    <Cards></Cards>
+    <Cards v-for="card in store.cards" :card="card"></Cards>
   </div>
 </template>
 
