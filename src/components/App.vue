@@ -15,10 +15,28 @@ export default {
 },
   created() {
     
-    axios.get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=50&offset=0").then((response) => {
+    axios.get(this.store.APIsearch).then((response) => {
     console.log(response.data.data);
+    this.store.cards = response.data.data;
     store.cards = response.data.data;
   });
+},
+methods: {
+  userSearch(){
+    axios.get(this.store.APIsearch).then((response) => {
+
+      if (this.store.cardSearch != "") {
+        let Parameter = "&fname=" + this.store.cardSearch;
+        axios.get(this.store.APIsearch + Parameter).then((response) =>{
+          this.store.cards= response.data.data
+        })
+      } else{
+        axios.get(this.store.APIsearch).then((response) =>{
+          this.store.cards= response.data.data
+        });
+      }
+    });
+  }
 },
 }
 
@@ -28,7 +46,7 @@ export default {
 <template>
   <div>
     <h1>Yu-Gi-Oh! First 50 Card-List</h1>
-    <Cardsearch></Cardsearch>
+    <Cardsearch @search="userSearch()"></Cardsearch>
     <Cards v-for="card in store.cards" :card="card"></Cards>
   </div>
 </template>

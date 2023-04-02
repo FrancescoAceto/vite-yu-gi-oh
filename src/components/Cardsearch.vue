@@ -1,9 +1,11 @@
 <script>
+import {store} from "../store.js";
 export default {
     name: 'Cardsearch',
     data() {
         return {
-            search: ""
+            search: "",
+            store,
         }
     },
 }
@@ -12,10 +14,12 @@ export default {
 <template>
     <div>
         <input v-model="search" type="text" placeholder="Search Cards">
-        <button>Search</button>
+        <button @click="$emit('search')">Search</button>
     </div>
 </template>
 
 <style>
-
+    input{
+        color: blue;
+    }
 </style>
