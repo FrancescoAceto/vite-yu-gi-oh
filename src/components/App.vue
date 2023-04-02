@@ -1,6 +1,7 @@
 <script>
 import {store} from "../store.js";
-import axios from "axios"; 
+import axios from "axios";
+import Cardsearch from "./Cardsearch.vue";
 import Cards from './Cards.vue';
 export default {
   data() {
@@ -10,6 +11,7 @@ export default {
   },
   components: {
   Cards,
+  Cardsearch,
 },
   created() {
     
@@ -26,6 +28,7 @@ export default {
 <template>
   <div>
     <h1>Yu-Gi-Oh! First 50 Card-List</h1>
+    <Cardsearch></Cardsearch>
     <Cards v-for="card in store.cards" :card="card"></Cards>
   </div>
 </template>
